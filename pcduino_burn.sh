@@ -4,7 +4,7 @@
 
 pwd=$PWD
 
-build_path=$(realpath ../pcduino)
+build_path=$PROFILE_DIR
 boot_mount_point=/tmp/${RANDOM}
 
 mkdir -p ${boot_mount_point}

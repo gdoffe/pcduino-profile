@@ -4,8 +4,7 @@
 
 pwd=$PWD
 
-build_path=$(realpath ../pcduino)
-TARGET_DIR=$(realpath $TARGET_DIR)
+build_path=$PROFILE_DIR
 
 mkdir -p $build_path
 
@@ -17,11 +16,11 @@ if [ "$(git --git-dir kernel/.git remote -v | tail -1 | grep '.*kernel.git.*')" 
     check_result $?
 fi
 cd kernel/
-make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- clean
+make clean
 check_result $?
-#x-terminal-emulator -e "make ARCH=arm linux-config"
-#check_result $?
-make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf-
+x-terminal-emulator -e "make linux-config"
+check_result $?
+make 
 check_result $?
 
 if [ ${TARGET_DIR} != "" ]; then
