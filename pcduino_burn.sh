@@ -5,6 +5,7 @@
 pwd=$PWD
 
 build_path=$PROFILE_DIR
+uboot_kernel_path=${build_path}/pcduino-uboot-kernel
 boot_mount_point=/tmp/${RANDOM}
 
 mkdir -p ${boot_mount_point}
@@ -13,10 +14,10 @@ check_result $?
 cd $build_path
 check_result $?
 
-dd if=kernel/build/pcduino_hwpack/bootloader/sunxi-spl.bin of=${TARGET_DEVICE} bs=1024 seek=8
+dd if=${uboot_kernel_path}/build/pcduino_hwpack/bootloader/sunxi-spl.bin of=${TARGET_DEVICE} bs=1024 seek=8
 check_result $?
 
-dd if=kernel/build/pcduino_hwpack/bootloader/u-boot.bin of=${TARGET_DEVICE} bs=1024 seek=32
+dd if=${uboot_kernel_path}/build/pcduino_hwpack/bootloader/u-boot.bin of=${TARGET_DEVICE} bs=1024 seek=32
 check_result $?
 
 sync
@@ -25,7 +26,7 @@ check_result $?
 mount ${VFAT_DEVICE} ${boot_mount_point}
 check_result $?
 
-cp ${build_path}/kernel/build/pcduino_hwpack/kernel/* ${boot_mount_point} -f
+cp ${uboot_kernel_path}/build/pcduino_hwpack/kernel/* ${boot_mount_point} -f
 check_result $?
 sync
 check_result $?
