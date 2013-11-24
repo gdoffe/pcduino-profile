@@ -5,17 +5,18 @@
 pwd=$PWD
 
 build_path=$PROFILE_DIR
+uboot_kernel_path=${build_path}/pcduino-uboot-kernel
 
 mkdir -p $build_path
 
 # Kernel
 cd $build_path
-if [ "$(git --git-dir kernel/.git remote -v | tail -1 | grep '.*kernel.git.*')" = "" ]; then
-    rm -Rf /${build_path}/kernel
-    git clone https://github.com/pcduino/kernel.git kernel
+if [ "$(git --git-dir ${uboot_kernel_path}/.git remote -v | tail -1 | grep '.*pcduino-uboot-kernel\.git.*')" = "" ]; then
+    rm -Rf ${uboot_kernel_path}
+    git clone https://github.com/geonobot/pcduino-uboot-kernel $uboot_kernel_path
     check_result $?
 fi
-cd kernel/
+cd ${uboot_kernel_path}
 make clean
 check_result $?
 x-terminal-emulator -e "make linux-config"
@@ -27,7 +28,7 @@ if [ ${TARGET_DIR} != "" ]; then
 	rm ${TARGET_DIR}/lib/modules/* -Rf
 	mkdir -p ${TARGET_DIR}/lib/modules/
 	check_result $?
-	cp ${build_path}/kernel/build/pcduino_hwpack/rootfs/lib/modules/* ${TARGET_DIR}/lib/modules/ -ar
+	cp ${uboot_kernel_path}/build/pcduino_hwpack/rootfs/* ${TARGET_DIR}/ -ar
 	check_result $?
 	echo "# ttyS0 - getty
 #
