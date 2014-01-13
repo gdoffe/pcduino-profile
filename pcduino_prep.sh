@@ -11,19 +11,19 @@ do
 done
 
 # Erase partition table
-dd if=/dev/zero of=${TARGET_DEVICE} bs=1M count=1
+dd if=/dev/zero of=${TARGET_DEVICE} bs=1024 count=1
 
-(echo "1,64,0b,
-    ,,L,*,
+(echo "2048,131072,c,,
+    ,,L,,
     ;
-    ;" | sudo sfdisk -fuM --no-reread --in-order ${TARGET_DEVICE})
+    ;" | sfdisk -fuS --in-order --no-reread ${TARGET_DEVICE})
 check_result $?
 
 partprobe ${TARGET_DEVICE}
 check_result $?
 
 # Format target
-mkfs.vfat -F 32 -n UBOOT $VFAT_DEVICE
+mkfs.vfat -n UBOOT $VFAT_DEVICE
 check_result $?
 mkfs.ext4 -L ${RANDOM} ${ROOTFS_DEVICE}
 check_result $?

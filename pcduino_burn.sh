@@ -58,5 +58,4 @@ check_result $?
 rmdir ${root_mount_point}/
 check_result $?
 
-
 cd $pwd
