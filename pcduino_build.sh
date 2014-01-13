@@ -13,7 +13,8 @@ mkdir -p $build_path
 cd $build_path
 if [ "$(git --git-dir ${uboot_kernel_path}/.git remote -v | tail -1 | grep '.*pcduino-uboot-kernel\.git.*')" = "" ]; then
     rm -Rf ${uboot_kernel_path}
-    git clone https://github.com/geonobot/pcduino-uboot-kernel $uboot_kernel_path
+    echo $build_path
+    git clone https://github.com/geonobot/pcduino-uboot-kernel.git $uboot_kernel_path
     check_result $?
 fi
 cd ${uboot_kernel_path}
