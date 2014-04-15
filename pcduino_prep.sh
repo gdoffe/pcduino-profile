@@ -11,7 +11,7 @@ do
 done
 
 # Erase partition table
-dd if=/dev/zero of=${TARGET_DEVICE} bs=1024 count=1
+dd if=/dev/zero of=${TARGET_DEVICE} bs=1024 count=1024
 
 (echo "2048,131072,c,,
     ,,L,,
