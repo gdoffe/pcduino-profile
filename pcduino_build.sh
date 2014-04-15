@@ -20,6 +20,8 @@ fi
 cd ${uboot_kernel_path}
 make clean
 check_result $?
+make update
+check_result $?
 x-terminal-emulator -e "make linux-config"
 check_result $?
 make 
