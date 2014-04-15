@@ -17,7 +17,7 @@ check_result $?
 dd if=${uboot_kernel_path}/build/pcduino_hwpack/bootloader/sunxi-spl.bin of=${TARGET_DEVICE} bs=1024 seek=8
 check_result $?
 
-dd if=${uboot_kernel_path}/build/pcduino_hwpack/bootloader/u-boot.bin of=${TARGET_DEVICE} bs=1024 seek=32
+dd if=${uboot_kernel_path}/build/pcduino-u-boot/u-boot.img of=${TARGET_DEVICE} bs=1024 seek=40
 check_result $?
 
 sync
