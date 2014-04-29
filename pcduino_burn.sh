@@ -5,7 +5,7 @@
 pwd=$PWD
 
 build_path=$PROFILE_DIR
-uboot_kernel_path=${build_path}/pcduino-uboot-kernel
+uboot_kernel_path=${build_path}/sunxi-bsp.git
 boot_mount_point=/tmp/${RANDOM}
 
 mkdir -p ${boot_mount_point}

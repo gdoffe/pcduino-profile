@@ -5,20 +5,22 @@
 pwd=$PWD
 
 build_path=$PROFILE_DIR
-uboot_kernel_path=${build_path}/pcduino-uboot-kernel
+uboot_kernel_path=${build_path}/sunxi-bsp.git
 
 mkdir -p $build_path
 
 # Kernel
 cd $build_path
-if [ "$(git --git-dir ${uboot_kernel_path}/.git remote -v | tail -1 | grep '.*pcduino-uboot-kernel\.git.*')" = "" ]; then
+if [ "$(git --git-dir ${uboot_kernel_path}/.git remote -v | tail -1 | grep '.*sunxi-bsp\.git.*')" = "" ]; then
     rm -Rf ${uboot_kernel_path}
     echo $build_path
-    git clone https://github.com/geonobot/pcduino-uboot-kernel.git $uboot_kernel_path
+    git clone https://github.com/linux-sunxi/sunxi-bsp.git
     check_result $?
+else
+    (cd $uboot_kernel_path && git pull)
 fi
 cd ${uboot_kernel_path}
-make clean
+./configure pcduino
 check_result $?
 make update
 check_result $?
